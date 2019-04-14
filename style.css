@@ -1,0 +1,43 @@
+@charset "UTF-8";
+/* CSS Document */
+p,div,ul,form,input,textarea{
+	padding:0;
+	margin:0;
+}
+input{
+	display:inline-block;
+}
+
+#container{
+	width:30%;
+	margin:0 auto;
+}
+
+#message li{
+	color:red;
+	list-style: none;
+}
+
+p{
+	margin-bottom:5px;
+}
+
+#title{
+	margin-bottom: 10px;
+	font-size: 16px;
+	padding:5px;
+}
+
+#category{
+	margin-bottom: 10px;
+}
+
+textarea{
+	padding:5px;
+	font-size: 14px;
+}
+
+#btn{
+	text-align:right;
+}
+

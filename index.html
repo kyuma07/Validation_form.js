@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>無題ドキュメント</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="container">
+		<h1>記事の投稿</h1>
+		<ul id="message"></ul>
+		<form action="#" method="post">
+			<p>タイトル</p>
+			<input type="text" name="title" id="title">
+			<p>カテゴリー</p>
+			<select id="category">
+				<option value=""></option>
+				<option value="ビジネス">ビジネス</option>
+				<option value="プログラミング">プログラミング</option>
+				<option value="デザイン">デザイン</option>
+				<option value="その他">その他</option>
+			</select>
+			<p>本文</p>
+			<textarea id="text" name="text" cols="30" rows="5"></textarea><br>
+			<input type="submit" value="送信" id="btn">
+		</form>
+	</div>
+	<script src="jquery-3.3.1.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
