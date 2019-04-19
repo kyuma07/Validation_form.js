@@ -3,67 +3,43 @@ var $title=$('#title');
 var $textarea=$('#text');
 var $btn=$('#btn');
 var $error_message=$('#message');
+var $error_box=[];
 var $select=$('#category');
 //------------------------------------------関数の定義---------------------------------------------------------
-
-function toggleDisabled(){
-	if($textarea.val()===''||$title.val()===''||$select.val()===''){
-		$btn.prop('disabled',true);
-	}else if($error_message.children().length===0){
-		$btn.prop('disabled',false);
-	}else if($error_message.children().length>0){
-		$btn.prop('disabled',true);
-	}
-}
-
-function textareaAppendMessage(){
+function validate_form(){
+	$error_box=[];
 	var $textLength=$textarea.val().length;
-	if($textLength<11){
-		$error_message.append('<li class="text_alert">本文は１０文字以上にしてください</li>');
-	}else if($textLength>21){
-		$error_message.append('<li class="text_alert">本文は２０文字以内にしてください</li>');
-	}
-}
-
-function titleAppendMessage(){
+	if($textLength<11)$error_box.push('本文は１０文字以上にしてください');
+	if($textLength>21)$error_box.push('本文は２０文字以内にしてください');
 	var $titleLength=$title.val().length;
-	if($titleLength>11){
-		$error_message.append('<li class="title_alert">タイトルは１０文字以内にしてください</li>');
-	}else if($titleLength===0){
-		$error_message.append('<li class="title_alert">タイトルを入力してください</li>');
+	if($titleLength>11)$error_box.push('タイトルは１０文字以内にしてください');
+	if($titleLength===0)$error_box.push('タイトルを入力してください');
+	var $current_option=($select.val());
+	if($current_option==='')$error_box.push('カテゴリーの選択は必須です');
+	$error_message.children().remove();
+	if($error_box.length>0){
+		for(var cnt=0; cnt<$error_box.length; cnt++){
+			$error_message.append('<li>'+$error_box[cnt]+'</li>');
+		}
+		$btn.prop('disabled',true);
+	}else{
+		$btn.prop('disabled',false);
 	}
 }
-
-function selectAppendMessage(){
-}
-
 //------------------------------------------フォームの処理---------------------------------------------------------
 
 $btn.prop('disabled',true);
 
-$title.on('keyup blur',function(){
-	$error_message.children().remove('.title_alert');
-	titleAppendMessage()
-	toggleDisabled()
-});
+$title.on('keyup blur',validate_form);
 
-$textarea.on('keyup blur',function(){
-	$error_message.children().remove('.text_alert');
-	textareaAppendMessage()
-	toggleDisabled()
-});
+$textarea.on('keyup',validate_form);
+
+$select.on('change',validate_form);
 
 $btn.on('click',function(e){
 	e.preventDefault();
 	$title.val('');
 	$textarea.val('');
 	$select.val('');
+	alert('入力内容が送信されました。');
 });
-
-$select.on('change blur',function(){
-	$error_message.children().remove('.select_alert');
-	var $current_option=($select.val());
-	if($current_option==='')$error_message.append('<li class="select_alert">カテゴリーの選択は必須です</li>');
-	toggleDisabled()
-});
-
